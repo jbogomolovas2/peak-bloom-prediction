@@ -1,0 +1,32 @@
+{
+    "id": "504C23A9",
+    "path": "~/Documents/BW_analysis/Blossom analysis/peak-bloom-prediction/Blossom_prediction.qmd",
+    "project_path": "Blossom_prediction.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1740429181693.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "rmdVisualMode": "true",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "718,2495,5129,12038,14898,23488,24957,30598",
+        "rmdVisualModeLocation": "22504:3933",
+        "cursorPosition": "166,0",
+        "scrollLine": "653",
+        "docOutlineSize": "37"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1740476003,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1740479014771,
+    "read_only": false,
+    "read_only_alternatives": []
+}

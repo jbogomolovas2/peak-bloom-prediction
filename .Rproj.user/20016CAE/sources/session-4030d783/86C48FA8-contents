@@ -1,0 +1,55 @@
+model<-mvgam(bloom_doy~s(latent1,k=3)+s(latent2,k=3)+s(latent3,k=3), data=train_selected,newdata = test_selected,family = gaussian(),control = list(max_treedepth = 12, adapt_delta = 0.99))
+model_fs<-mvgam(bloom_doy~s(latent1,series,bs="fs",k=3)+s(latent2,series,bs="fs",k=3)+s(latent3,series,bs="fs",k=3), data=train_selected,newdata = test_selected,family = gaussian(),control = list(max_treedepth = 12, adapt_delta = 0.99))
+model_fst<-mvgam(bloom_doy~s(latent1,series,bs="fs",k=3)+s(latent2,series,bs="fs",k=3)+s(latent3,series,bs="fs",k=3),trend_model = RW(),data=train_selected,newdata = test_selected,family = gaussian(),control = list(max_treedepth = 12, adapt_delta = 0.99))
+
+fc<mod
+
+# Define the mapping from full names to short names
+location_mapping <- c(
+  "Kyoto, Japan"                 = "kyoto",
+  "Liestal-Weideli, Switzerland" = "liestal",
+  "New York, USA"                = "newyorkcity",
+  "Vancouver, Canada"            = "vancouver",
+  "Washington DC, USA"           = "washingtondc"
+)
+
+# Initialize an empty data frame to store predictions
+cherry_predictions <- data.frame(
+  location   = character(),
+  prediction = integer(),
+  lower      = integer(),
+  upper      = integer(),
+  stringsAsFactors = FALSE
+)
+
+# Loop over each forecast series for 2025 (assume column 2 corresponds to the year 2025)
+for (i in seq_along(fc$series_names)) {
+  # Extract the full location name from fc
+  full_name <- as.character(fc$series_names[i])
+  # Convert the full name to a short name using the mapping
+  short_name <- location_mapping[full_name]
+  
+  # Extract forecast draws for 2025
+  draws <- fc$forecasts[[i]][, 2]
+  
+  # Compute the mean prediction and the 95% quantile-based credible interval
+  prediction <- as.integer(round(mean(draws)))
+  ci <- as.integer(round(quantile(draws, probs = c(0.025, 0.975))))
+  
+  # Append the computed values to the predictions data frame using the short name
+  cherry_predictions <- rbind(cherry_predictions, data.frame(
+    location   = short_name,
+    prediction = prediction,
+    lower      = ci[1],
+    upper      = ci[2],
+    stringsAsFactors = FALSE
+  ))
+}
+
+# Save the final predictions data frame as a CSV file
+write.csv(cherry_predictions, file = "cherry_predictions.csv", row.names = FALSE)
+
+# Display the final data frame
+print(cherry_predictions)
+
+

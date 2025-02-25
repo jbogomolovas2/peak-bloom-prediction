@@ -1,0 +1,24 @@
+{
+    "id": "5AACCA71",
+    "path": "~/Documents/BW_analysis/Blossom analysis/peak-bloom-prediction/data/USA-NPN_status_intensity_observations_data.csv",
+    "project_path": "data/USA-NPN_status_intensity_observations_data.csv",
+    "type": "text",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1740472475444.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1739847467,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1739847467,
+    "read_only": false,
+    "read_only_alternatives": []
+}

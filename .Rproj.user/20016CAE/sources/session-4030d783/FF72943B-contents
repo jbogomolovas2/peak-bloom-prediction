@@ -1,0 +1,31 @@
+model_fs2<-mvgam(bloom_doy~s(latent1,series,bs="fs",k=3)+s(latent2,series,bs="fs",k=3)+s(latent3,series,bs="fs",k=3), data=train_selected,newdata = test_all,family = gaussian(),control = list(max_treedepth = 12, adapt_delta = 0.99))
+fc<-forecast(model_fs2,test_all, type = "expected")
+# Assuming your forecast object is named 'fc'
+
+# Create a data frame to store the results
+cherry_predictions <- data.frame(
+  location = character(),
+  prediction = integer(),
+  lower = integer(),
+  upper = integer(),
+  stringsAsFactors = FALSE
+)
+
+# Extract forecasts for 2025 (index 45) for each location
+for(i in 1:length(fc$series_names)) {
+  series_name <- as.character(fc$series_names[i])
+  draws <- fc$forecasts[[i]][, 2]  # Second column is index 45 (year 2025)
+  
+  # Calculate rounded statistics
+  prediction <- as.integer(round(mean(draws)))
+  ci <- as.integer(round(quantile(draws, probs = c(0.025, 0.975))))
+  
+  # Add to data frame
+  cherry_predictions <- rbind(cherry_predictions, data.frame(
+    location = series_name,
+    prediction = prediction,
+    lower = ci[1],
+    upper = ci[2],
+    stringsAsFactors = FALSE
+  ))
+}
